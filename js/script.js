@@ -1,6 +1,6 @@
 // Data
 const clicks = document.getElementById('loc');
-const input = document.getElementById('cImg');
+const input = document.getElementById('cImg').value;
 const check = document.getElementById('check');
 
 var totalClicks = 0;
@@ -8,7 +8,7 @@ var wToType = "var loc = 0";
 
 // functions
 function checkCode() {
-  if(input.value === wToType) {    
+  if(input === wToType) {    
     totalClicks += 1
     clicks.textContent = "Lines of code:" + totalClicks;                                                                                                                                                                                    
   }
