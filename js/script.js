@@ -7,7 +7,7 @@ var wToType = "var loc = 0";
 
 // functions
 function checkCode() {
-  if(input.innerHTML = wToType) {    
+  if(input.value === wToType) {    
     totalClicks += 1
     clicks.textContent = "Lines of code:" + totalClicks;                                                                                                                                                                                    
   }
