@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+}
+
+br {
+  content: " ";
+}
+
+#localSponsor {
+  float: right;
+  border: 15px double #000;
+  border-radius: 25px;
+}
+
