@@ -10,7 +10,8 @@ var wToType = "var loc = 0";
 function checkCode() {
   if(input.value === wToType) {    
     totalClicks += 1
-    clicks.textContent = "Lines of code:" + totalClicks;                                                                                                                                                                                    
+    clicks.textContent = "Lines of code:" + totalClicks;
+    input.style.content = " ";
   }
 };
 
