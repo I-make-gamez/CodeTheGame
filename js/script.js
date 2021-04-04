@@ -1,6 +1,6 @@
 // Data
 const clicks = document.getElementById('loc');
-const input = document.getElementById('cImg').value;
+const input = document.getElementById('input').value;
 const check = document.getElementById('check');
 
 var totalClicks = 0;
