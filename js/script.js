@@ -1,6 +1,7 @@
 // Data
 const clicks = document.getElementById('loc');
 const input = document.getElementById('cImg');
+const check = document.getElementById('check');
 
 var totalClicks = 0;
 var wToType = "var loc = 0";
@@ -13,3 +14,5 @@ function checkCode() {
   }
 };
 
+// Event listeners
+check.addEventListener("click", checkCode, false);
