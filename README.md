@@ -1,5 +1,4 @@
-# Idle Developer
-work from the ground up to build  
-your coding empire!   
-  
-[Play it here](http://smokeyanfriends.github.io/Idle-Dev/)
+# Code the game
+
+A game that forces people to type to gain upgrades
+[Play it here](https://smokeyandfriends.github.io/Idle-Dev/)
