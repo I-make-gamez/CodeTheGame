@@ -8,4 +8,29 @@ br{
   
 }
 
+button{
+  border: 5px, solid #000;
+  border-radius: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgb(223, 223, 223);
+}
 
+button:active{
+  background-color: black;
+  color: white;
+}
+
+.st {
+  position: absolute;
+  text-align: center;
+  margin: 0;
+  left: 45%;
+  top: 25%;
+  opacity: 1;
+  border: 5px solid #000;
+  font-size: smaller;
+  width: 125px;
+  height: auto;
+  padding-bottom: 10px;
+}
