@@ -5,6 +5,7 @@ const check = document.getElementById('check');
 const up = document.getElementById('wtt');
 const nhy = document.getElementById('tt');
 const locm = document.getElementsByClassName('st')[0];
+const dfh = document.getElementsByClassName('dfh')[0];
 
 let wToType = `var loc = 0`
 var totalClicks = 0
@@ -18,21 +19,41 @@ function checkCode() {
   }
 };
   
+function sneak(){
+  totalClicks += 1
+  bou();
+  clicks.textContent = "Lines of code: " + totalClicks;    
+}
+
 function clearInput(){
   input.value = null
 };
 
-function keyCode(Event){
+function enter(Event){
   if(Event = 13){
     checkCode();
     return;
-  }
+  };
 };
 
+function key1(Event){
+  if(Event = '49'){
+    unlockLcm();
+    unlockDfh();
+    return;
+  }
+}
+
+//Loc Multiplier
 function unlockLcm(){
   nhy.style.opacity = '0'
   locm.style.opacity = "1"
 };
+
+//Dev for hire
+function unlockDfh(){
+  dfh.style.opacity = '1'
+}
 
 
 //!!THIS FUNCTION CONTROLS EVERY UPGRADE!!
@@ -44,7 +65,7 @@ function bou(){
     up.innerHTML = 'Great! Now for some upgrades! first, type [div][/div]'
     wToType = `[div][/div]`
   }else if(totalClicks < 7){
-    up.innerHTML = `Now, lets fill in our div element. first, add {h1}Loc multiplier{/h1}`
+    up.innerHTML = `Now, lets fill in our div element. first, add [h1]Loc Multiplier[/h1]`
     wToType = `[h1]Loc Multiplier[/h1]`
   }else if(totalClicks < 8){
     up.innerHTML = `lets add a description: [p]Increses LOC by 1 per line typed[/p]`
@@ -59,4 +80,5 @@ function bou(){
 
 // Event listeners
 check.addEventListener("click", checkCode, false);
-document.addEventListener("keydown", keyCode, false);
+document.addEventListener("keydown", enter, false);
+document.addEventListener("keydown", key1, false);
