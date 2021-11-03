@@ -43,31 +43,33 @@ button:hover{
 }
 
 .st {
-  display: table;
   position: absolute;
+  display: table;
   text-align: center;
-  margin: 0;
-  left: 8.25in;
-  top: 35%;
+  margin-bottom: 0 auto;
+  top: 45%;
   opacity: 0;
   border: 5px solid #000;
   font-size: smaller;
   width: 125px;
   height: auto;
   padding-bottom: 10px;
+  left: 43%;
+  transform: translate(-43%, 0);
 }
 
 .dfh {
-  display: table;
   position: absolute;
+  display: con;
   text-align: center;
-  margin: 0;
-  left: 6.25in;
-  top: 35%;
+  margin-bottom: 0 auto;
+  top: 45%;
   opacity: 0;
   border: 5px solid #000;
   font-size: smaller;
   width: 125px;
   height: auto;
   padding-bottom: 10px;
+  left: 57%;
+  transform: translate(-57%, 0);
 }
