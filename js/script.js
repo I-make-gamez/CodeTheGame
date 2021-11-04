@@ -14,7 +14,7 @@ var totalClicks = 0
 var funds = 0
 var locmPrice = 20
 var able = 0
-
+var adminCmds = ['unup', 'gainFunds', 'gainLOC', 'changeAble']
 
 // functions
 function checkCode() {
@@ -24,12 +24,37 @@ function checkCode() {
     bou();
     clicks.textContent = "Lines of code: " + totalClicks;
     clearInput();
+  }else if(input.value === adminCmds[0]){
+    unlockLcm();
+    unlockDfh();
+    input.value = null;
+    return;
+  }else if(input.value == adminCmds[1]){
+    input.value = null;
+    let aut = window.prompt('Enter Amount')
+    funds += parseInt(aut);
+    mon.innerHTML = `Funds: $${funds}`
+    return;
+  }else if(input.value === adminCmds[2]){
+    input.value = null;
+    let aol = window.prompt('Enter Amount')
+    totalClicks += parseInt(aol);
+    clicks.innerHTML = `Lines of code: ${totalClicks}`
+    return;
+  }else if(input.value === adminCmds[3]){
+    input.value = null
+    able = window.prompt('Enter An Integer\n[0-6]')
+    bou();
   }
 };
 
 function loadData(){
   totalClicks = JSON.parse(localStorage.getItem('LOC'));
-  clicks.textContent = "Lines of code: " + totalClicks;
+  if(totalClicks != null){
+    clicks.textContent = "Lines of code: " + totalClicks;
+  }else{
+    clicks.innerHTML = `Lines of code: 0`
+  }
   able = JSON.parse(localStorage.getItem('able'));
   bou();
   funds = JSON.parse(localStorage.getItem('funds'));
@@ -98,43 +123,37 @@ function unlockDfh(){
 
 //!!THIS FUNCTION CONTROLS EVERY UPGRADE!!
 function bou(){
-  if(totalClicks === 1 && able === 0){
+ if(totalClicks === 1 && able === 0){
+  able += 1
     up.innerHTML = `Type: "var loc += 1"`
     wToType = `var loc += 1`
-    able += 1
-    localStorage.setItem('able', able)
-  }else if(totalClicks === 6 && able === 1){
+  }else if(totalClicks === 5 && able === 5){
     up.innerHTML = 'Great! Now for some upgrades! first, type [div][/div]'
     wToType = `[div][/div]`
     able += 1
-    localStorage.setItem('able', able)
-  }else if(totalClicks === 7 && able === 2){
+  }else if(totalClicks === 6 && able === 6){
     up.innerHTML = `Now, lets fill in our div element. first, add [h1]Loc Multiplier[/h1]`
     wToType = `[h1]Loc Multiplier[/h1]`
     able += 1    
-    localStorage.setItem('able', able)
-  }else if(totalClicks === 8 && able === 3){
+  }else if(totalClicks === 7 && able === 7){
     up.innerHTML = `lets add a description: [p]Increses LOC by 1 per line typed[/p]`
     wToType = `[p]Increses LOC by 1 per line typed[/p]`
     able += 1
-    localStorage.setItem('able', able)
-  }else if(totalClicks === 9 && able === 4){
+  }else if(totalClicks === 8 && able === 8){
     up.innerHTML = `lets add the buy button: [button]Buy | Cost: 20[/button]`
     wToType = `[button]Buy | Cost: 20[/button]`
     able += 1
-    localStorage.setItem('able', able)
-  }else if(totalClicks === 10 && able === 5){
+  }else if(totalClicks === 9 && able === 9){
     up.innerHTML = `Good Job! The Upgrade show now show! keep using var loc += 1 to get LOC`
     wToType = `var loc += 1`
     unlockLcm();
     able += 1
-    localStorage.setItem('able', able)
   }else if(totalClicks === 25 && able === 6){
     up.innerHTML = `I think we need some more developers, type, [div][/div]`
     wToType = `[div][/div]`
     able += 1
-    localStorage.setItem('able', able)
   }
+  localStorage.setItem('able', able)
 };
 
 //upgrades
