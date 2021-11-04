@@ -12,17 +12,25 @@ let wToType = `var loc = 0`
 var totalClicks = 0
 var funds = 0
 var locmPrice = 20
-var able = false
+var able = 0
+
 
 // functions
 function checkCode() {
   if(input.value === wToType) {    
     totalClicks += 1
+    localStorage.setItem('LOC', totalClicks)
     bou();
     clicks.textContent = "Lines of code: " + totalClicks;
     clearInput();
   }
 };
+
+function loadData(){
+  totalClicks = JSON.parse(localStorage.getItem('LOC'));
+  funds = JSON.parse(localStorage.getItem('funds'));
+  able = JSON.parse(localStorage.getItem('able'))
+}
   
 function sneak(){
   totalClicks += 1
@@ -41,12 +49,12 @@ function enter(Event){
   };
 };
 
-function key1(Event){
+/*function key1(Event){
   if(Event = 49){
     sneak();
     return;
   }
-}
+}*/
 
 //Loc Multiplier
 function unlockLcm(){
@@ -64,28 +72,42 @@ function unlockDfh(){
 
 //!!THIS FUNCTION CONTROLS EVERY UPGRADE!!
 function bou(){
-  if(totalClicks <= 4){
+  if(totalClicks === 1 && able === 0){
     up.innerHTML = `Type: "var loc += 1"`
     wToType = `var loc += 1`
-  }else if(totalClicks <= 6){
+    able += 1
+    localStorage.setItem('able', able)
+  }else if(totalClicks === 6 && able === 1){
     up.innerHTML = 'Great! Now for some upgrades! first, type [div][/div]'
     wToType = `[div][/div]`
-  }else if(totalClicks <= 7){
+    able += 1
+    localStorage.setItem('able', able)
+  }else if(totalClicks === 7 && able === 2){
     up.innerHTML = `Now, lets fill in our div element. first, add [h1]Loc Multiplier[/h1]`
     wToType = `[h1]Loc Multiplier[/h1]`
-  }else if(totalClicks <= 8){
+    able += 1    
+    localStorage.setItem('able', able)
+  }else if(totalClicks === 8 && able === 3){
     up.innerHTML = `lets add a description: [p]Increses LOC by 1 per line typed[/p]`
     wToType = `[p]Increses LOC by 1 per line typed[/p]`
-  }else if(totalClicks <= 9){
+    able += 1
+    localStorage.setItem('able', able)
+  }else if(totalClicks === 9 && able === 4){
     up.innerHTML = `lets add the buy button: [button]Buy | Cost: 20[/button]`
     wToType = `[button]Buy | Cost: 20[/button]`
-  }else if(totalClicks <= 10){
+    able += 1
+    localStorage.setItem('able', able)
+  }else if(totalClicks === 10 && able === 5){
     up.innerHTML = `Good Job! The Upgrade show now show! keep using var loc += 1 to get LOC`
     wToType = `var loc += 1`
     unlockLcm();
-  }else if(totalClicks >= 25){
+    able += 1
+    localStorage.setItem('able', able)
+  }else if(totalClicks === 25 && able === 6){
     up.innerHTML = `I think we need some more developers, type, [div][/div]`
     wToType = `[div][/div]`
+    able += 1
+    localStorage.setItem('able', able)
   }
 };
 
@@ -96,6 +118,7 @@ locm.addEventListener("click", function(){
     clicks.textContent = "Lines of code: " + totalClicks;
     setInterval(() => {
       funds += 1
+      localStorage.setItem('funds', funds)
       mon.innerHTML = `Funds: $${funds}`
     }, 1000);
   }
@@ -104,4 +127,4 @@ locm.addEventListener("click", function(){
 // Event listeners
 check.addEventListener("click", checkCode, false);
 document.addEventListener("keydown", enter, false);
-document.addEventListener("keydown", key1, false);
+//document.addEventListener("keydown", key1, false);
