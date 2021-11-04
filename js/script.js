@@ -7,6 +7,7 @@ const up = document.getElementById('wtt');
 const nhy = document.getElementById('tt');
 const locm = document.getElementsByClassName('st')[0];
 const dfh = document.getElementsByClassName('dfh')[0];
+const btn_data = document.getElementById('btn_data');
 
 let wToType = `var loc = 0`
 var totalClicks = 0
@@ -28,9 +29,34 @@ function checkCode() {
 
 function loadData(){
   totalClicks = JSON.parse(localStorage.getItem('LOC'));
+  clicks.textContent = "Lines of code: " + totalClicks;
+  able = JSON.parse(localStorage.getItem('able'));
+  bou();
   funds = JSON.parse(localStorage.getItem('funds'));
-  able = JSON.parse(localStorage.getItem('able'))
-}
+  if(funds != null){
+    mon.innerHTML = `Funds: $${funds}`
+  }else{
+    mon.innerHTML = `Funds: $0`
+  }
+};
+
+function eraseData(){
+  const y_n = window.prompt('This Will Completely erase your data!\nAre you sure?\n[Y/N]')
+  if(y_n == 'y' || 'Y'){
+    totalClicks = 0;
+    clicks.textContent = "Lines of code: " + totalClicks;    
+    localStorage.removeItem('LOC');
+    funds = 0
+    mon.innerHTML = `Funds: $${funds}`
+    localStorage.removeItem('funds');
+    able = 0;
+    up.innerHTML = 'Lets get started with our loc (lines of code) variable.&nbsp;Type "var loc = 0"'
+    wToType = `var loc = 0`
+    localStorage.removeItem('able');
+  }else{
+    return;
+  }
+};
   
 function sneak(){
   totalClicks += 1
@@ -127,4 +153,5 @@ locm.addEventListener("click", function(){
 // Event listeners
 check.addEventListener("click", checkCode, false);
 document.addEventListener("keydown", enter, false);
+btn_data.addEventListener('click', eraseData, false);
 //document.addEventListener("keydown", key1, false);
