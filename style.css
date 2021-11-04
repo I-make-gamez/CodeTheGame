@@ -129,3 +129,13 @@ button:hover{
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
+.ysb2{
+  font-size: 25px;
+  width: 200px;
+  position: absolute;
+  left: 5%;
+  top: 40%;
+  transform: translate(-5%, -50%);
+  text-align: center;
+}
