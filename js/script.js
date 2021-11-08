@@ -21,16 +21,15 @@ function checkCode() {
   if(input.value === wToType) {    
     totalClicks += 1
     localStorage.setItem('LOC', totalClicks)
-    bou();
     clicks.textContent = "Lines of code: " + totalClicks;
-    clearInput();
+    input.value = null;
   }else if(input.value === adminCmds[0]){
     unlockLcm();
     unlockDfh();
     input.value = null;
     return;
-  }else if(input.value == adminCmds[1]){
-    input.value = null;
+  }else if(input.value === adminCmds[1]){
+    clearInput()    
     let aut = window.prompt('Enter Amount')
     funds += parseInt(aut);
     mon.innerHTML = `Funds: $${funds}`
@@ -42,9 +41,10 @@ function checkCode() {
     clicks.innerHTML = `Lines of code: ${totalClicks}`
     return;
   }else if(input.value === adminCmds[3]){
-    input.value = null
-    able = window.prompt('Enter An Integer\n[0-6]')
+    able = window.prompt('Enter An Integer\n[0-7]')
+    sou();
     bou();
+    input.value = null;  
   }
 };
 
@@ -56,7 +56,16 @@ function loadData(){
     clicks.innerHTML = `Lines of code: 0`
   }
   able = JSON.parse(localStorage.getItem('able'));
+  sou();
   bou();
+  if(totalClicks <= 24 && totalClicks >= 9){
+    up.innerHTML = `keep using var loc += 1 to get LOC`
+    wToType = `var loc += 1`
+    unlockLcm();
+  }else if(totalClicks >= 9){
+    unlockLcm();
+  }
+  
   funds = JSON.parse(localStorage.getItem('funds'));
   if(funds != null){
     mon.innerHTML = `Funds: $${funds}`
@@ -89,13 +98,11 @@ function sneak(){
   clicks.textContent = "Lines of code: " + totalClicks;    
 }
 
-function clearInput(){
-  input.value = null
-};
-
 function enter(Event){
   if(Event = 13){
-    checkCode();
+    checkCode();   
+    sou();
+    bou();
     return;
   };
 };
@@ -121,42 +128,65 @@ function unlockDfh(){
 }
 
 
-//!!THIS FUNCTION CONTROLS EVERY UPGRADE!!
+//!!THESE FUNCTIONS CONTROL EVERY UPGRADE!!
 function bou(){
  if(totalClicks === 1 && able === 0){
-  able += 1
     up.innerHTML = `Type: "var loc += 1"`
     wToType = `var loc += 1`
-  }else if(totalClicks === 5 && able === 5){
+  }else if(totalClicks === 5 && able === 1){
     up.innerHTML = 'Great! Now for some upgrades! first, type [div][/div]'
     wToType = `[div][/div]`
-    able += 1
-  }else if(totalClicks === 6 && able === 6){
+  }else if(totalClicks === 6 && able === 2){
     up.innerHTML = `Now, lets fill in our div element. first, add [h1]Loc Multiplier[/h1]`
     wToType = `[h1]Loc Multiplier[/h1]`
-    able += 1    
-  }else if(totalClicks === 7 && able === 7){
+  }else if(totalClicks === 7 && able === 3){
     up.innerHTML = `lets add a description: [p]Increses LOC by 1 per line typed[/p]`
     wToType = `[p]Increses LOC by 1 per line typed[/p]`
-    able += 1
-  }else if(totalClicks === 8 && able === 8){
+  }else if(totalClicks === 8 && able === 4){
     up.innerHTML = `lets add the buy button: [button]Buy | Cost: 20[/button]`
     wToType = `[button]Buy | Cost: 20[/button]`
-    able += 1
-  }else if(totalClicks === 9 && able === 9){
+  }else if(totalClicks === 9 && able === 5){
     up.innerHTML = `Good Job! The Upgrade show now show! keep using var loc += 1 to get LOC`
     wToType = `var loc += 1`
     unlockLcm();
-    able += 1
   }else if(totalClicks === 25 && able === 6){
     up.innerHTML = `I think we need some more developers, type, [div][/div]`
     wToType = `[div][/div]`
-    able += 1
+  }else if(totalClicks === 26 && able === 7){
+    up.innerHTML = `Next, type: [h1]Dev For Hire[/h1]`
+    wToType = `[h1]Dev For Hire[/h1]`
+  }else if(totalClicks === 27 && able === 8){
+    up.innerHTML = `Now, [p]Hire some devs for work for you[/p]`
+    wToType = `[p]Hire some devs for work for you[/p]`
   }
   localStorage.setItem('able', able)
 };
 
+function sou(){
+  if(totalClicks === 1){
+      able = 0
+    }else if(totalClicks === 5){
+      able = 1
+    }else if(totalClicks === 6){
+      able = 2
+    }else if(totalClicks === 7){
+      able = 3
+    }else if(totalClicks === 8){
+      able = 4
+    }else if(totalClicks === 9){
+      able = 5
+    }else if(totalClicks === 25){
+      able = 6
+    }else if(totalClicks === 26){
+      able = 7
+    }else if(totalClicks === 27){
+      able = 8
+    }
+};
+
 //upgrades
+
+//Loc Multiplier
 locm.addEventListener("click", function(){
   if(totalClicks >= locmPrice){
     totalClicks -= locmPrice;
@@ -170,7 +200,11 @@ locm.addEventListener("click", function(){
 });
 
 // Event listeners
-check.addEventListener("click", checkCode, false);
+check.addEventListener("click", function(){
+  checkCode();
+  sou();
+  bou();
+}, false);
 document.addEventListener("keydown", enter, false);
 btn_data.addEventListener('click', eraseData, false);
 //document.addEventListener("keydown", key1, false);
