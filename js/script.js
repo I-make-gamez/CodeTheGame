@@ -13,8 +13,11 @@ let wToType = `var loc = 0`
 var totalClicks = 0
 var funds = 0
 var locmPrice = 20
+var dfhPrice = 50
 var able = 0
-var adminCmds = ['unup', 'gainFunds', 'gainLOC', 'changeAble']
+var adminCmds = ['/unup', '/getfunds', '/getloc', '/changeable', '/godmode']
+var locShowing = false;
+var dfhShowing = false;
 
 // functions
 function checkCode() {
@@ -29,7 +32,7 @@ function checkCode() {
     input.value = null;
     return;
   }else if(input.value === adminCmds[1]){
-    clearInput()    
+    input.value = null;
     let aut = window.prompt('Enter Amount')
     funds += parseInt(aut);
     mon.innerHTML = `Funds: $${funds}`
@@ -45,6 +48,13 @@ function checkCode() {
     sou();
     bou();
     input.value = null;  
+  }else if(input.value === adminCmds[4]){
+    totalClicks = 999999999999;
+    clicks.innerHTML = `Lines of code: ${totalClicks}`
+    funds = 999999999999;
+    mon.innerHTML = `Funds: $${funds}`
+    input.value = adminCmds[0]
+    enter();
   }
 };
 
@@ -64,6 +74,10 @@ function loadData(){
     unlockLcm();
   }else if(totalClicks >= 9){
     unlockLcm();
+  }
+
+  if(totalClicks >= 29){
+    unlockDfh();
   }
   
   funds = JSON.parse(localStorage.getItem('funds'));
@@ -118,6 +132,7 @@ function enter(Event){
 function unlockLcm(){
   nhy.style.opacity = '0'
   locm.style.opacity = "1"
+  locShowing = true;
 };
 
 
@@ -125,6 +140,7 @@ function unlockLcm(){
 //Dev for hire
 function unlockDfh(){
   dfh.style.opacity = '1'
+  dfhShowing = true;
 }
 
 
@@ -158,6 +174,13 @@ function bou(){
   }else if(totalClicks === 27 && able === 8){
     up.innerHTML = `Now, [p]Hire some devs for work for you[/p]`
     wToType = `[p]Hire some devs for work for you[/p]`
+  }else if(totalClicks === 28 && able === 9){
+    up.innerHTML = `[button]Buy | Cost: 50 Funds[/button]`
+    wToType =  `[button]Buy | Cost: 50 Funds[/button]`
+  }else if(totalClicks === 29 && able === 10){
+    up.innerHTML = `Great! Use loc += 1 to get loc.`
+    wToType = `loc += 1`
+    unlockDfh();
   }
   localStorage.setItem('able', able)
 };
@@ -165,22 +188,26 @@ function bou(){
 function sou(){
   if(totalClicks === 1){
       able = 0
-    }else if(totalClicks === 5){
+    }else if(totalClicks === 5 && dfhShowing === false && locShowing === false){
       able = 1
-    }else if(totalClicks === 6){
+    }else if(totalClicks === 6 && dfhShowing === false && locShowing === false){
       able = 2
-    }else if(totalClicks === 7){
+    }else if(totalClicks === 7 && dfhShowing === false && locShowing === false){
       able = 3
-    }else if(totalClicks === 8){
+    }else if(totalClicks === 8 && dfhShowing === false && locShowing === false){
       able = 4
-    }else if(totalClicks === 9){
+    }else if(totalClicks === 9 && dfhShowing === false && locShowing === true){
       able = 5
-    }else if(totalClicks === 25){
+    }else if(totalClicks === 25 && dfhShowing === false && locShowing === true){
       able = 6
-    }else if(totalClicks === 26){
+    }else if(totalClicks === 26 && dfhShowing === false && locShowing === true){
       able = 7
-    }else if(totalClicks === 27){
+    }else if(totalClicks === 27 && dfhShowing === false && locShowing === true){
       able = 8
+    }else if(totalClicks === 28 && dfhShowing === false && locShowing === true){
+      able = 9
+    }else if(totalClicks === 29 && dfhShowing === true && locShowing === true){
+      able = 10
     }
 };
 
@@ -199,6 +226,19 @@ locm.addEventListener("click", function(){
   }
 });
 
+//Dev For Hire
+dfh.addEventListener("click", function(){
+  if(funds >= dfhPrice){
+    funds -+ dfhPrice
+    mon.innerHTML = `Funds: $${funds}`
+    setInterval(() => {
+      totalClicks += 1
+      clicks.innerHTML = `Lines of code: ${totalClicks}`
+      funds -= 1
+      mon.innerHTML = `Funds: $${funds}`
+    }, 2000)
+  }
+});
 // Event listeners
 check.addEventListener("click", function(){
   checkCode();
